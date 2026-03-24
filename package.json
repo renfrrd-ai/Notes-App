@@ -1,0 +1,27 @@
+{
+  "name": "notes_app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon server/app.js",
+    "client": "npm start --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/renfrrd-ai/Notes-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/renfrrd-ai/Notes-App/issues"
+  },
+  "homepage": "https://github.com/renfrrd-ai/Notes-App#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
