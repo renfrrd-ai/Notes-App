@@ -3,7 +3,6 @@ const router = express.Router();
 require("dotenv").config();
 
 const pool = require("../db");
-const { resolveSoa } = require("node:dns");
 
 router.get("/notes", async (req, res) => {
   try {
