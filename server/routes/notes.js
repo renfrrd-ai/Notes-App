@@ -20,4 +20,16 @@ router.get("/notes/", async (req, res) => {
   }
 });
 
+router.get("/note/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const results = await pool.query(`SELECT * FROM notes WHERE id=$1`, [id]);
+    if (results.rows.length === 0)
+      return res.status(404).json({ message: "Note not found" });
+    res.status(200).json(results.rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;
