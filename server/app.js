@@ -3,6 +3,9 @@ require("dotenv").config();
 
 const port = process.env.PORT;
 const app = express();
+const notesRoutes = require("./routes/notes");
+
+app.use("/", notesRoutes);
 
 app.listen(port, (err) => {
   if (err) console.log(err);
