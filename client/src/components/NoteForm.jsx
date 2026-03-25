@@ -39,7 +39,7 @@ function NoteForm() {
 
   return (
     <div>
-      <p className="text-base">Add New Note</p>
+      <h3 className="text-base font-semibold">Add New Note</h3>
       <div className="bg-neutral-800 rounded-xl p-5 md:py-4 mt-4 border-[.5px] border-neutral-600">
         <form onSubmit={handleSubmit} method="post">
           <label htmlFor="title">TITLE</label>
