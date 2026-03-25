@@ -10,4 +10,12 @@ export default defineConfig({
     babel({ presets: [reactCompilerPreset()] }),
     tailwindcss(),
   ],
+  server: {
+    proxy: {
+      "/notes": {
+        target: "http://localhost:5040",
+        changeOrigin: true,
+      },
+    },
+  },
 });

@@ -16,6 +16,6 @@
 
 @layer components {
   .btn {
-    @apply text-sm w-full h-10 bg-blue-500 rounded-lg;
+    @apply text-sm w-full h-10 bg-blue-500 rounded-lg cursor-pointer active:bg-blue-400;
   }
 }
