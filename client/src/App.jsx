@@ -1,5 +1,6 @@
 import Header from "./components/Header";
 import NoteForm from "./components/NoteForm";
+import Notes from "./components/Notes";
 
 function App() {
   return (
@@ -7,9 +8,7 @@ function App() {
       <Header />
       <div className="grid md:grid-cols-[1fr_2fr] gap-8">
         <NoteForm />
-        <div className="text-base font-semibold">
-          <h3>Recent Notes</h3>
-        </div>
+        <Notes />
       </div>
     </>
   );
