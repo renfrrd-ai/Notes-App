@@ -75,7 +75,7 @@ router.put("/notes/:id", async (req, res) => {
 
     const result = await pool.query(
       `UPDATE notes
-       SET title = $1, content = $2
+       SET title = $1, content = $2, updated_at = CURRENT_TIMESTAMP
        WHERE id=$3
        RETURNING *`,
       [title, content, id],

@@ -14,7 +14,7 @@ function Notes({ notes, updateNotes }) {
       </div>
       {notes
         .sort((a, b) => {
-          return new Date(b.created_at) - new Date(a.created_at);
+          return new Date(b.updated_at) - new Date(a.updated_at);
         })
         .map((note) => (
           <Note
