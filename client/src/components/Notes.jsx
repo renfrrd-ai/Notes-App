@@ -1,6 +1,6 @@
 import Note from "./Note";
 
-function Notes() {
+function Notes({ notes }) {
   return (
     <div>
       <div className="grid grid-cols-[6fr_1fr]">
@@ -9,14 +9,13 @@ function Notes() {
           3 Notes
         </span>
       </div>
-      <Note
-        title="Database Schema"
-        content="Remember to add the 'created_at' timestamp to the notes table"
-      />
-      <Note
-        title="Database Schema"
-        content="Remember to add the 'created_at' timestamp to the notes table"
-      />
+      {notes
+        .sort((a, b) => {
+          return new Date(b.created_at) - new Date(a.created_at);
+        })
+        .map((note) => (
+          <Note key={note.id} title={note.title} content={note.content} />
+        ))}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useState } from "react";
+import axios from "axios";
 
-function NoteForm() {
+function NoteForm({ updateNotes }) {
   const [note, setNote] = useState({ title: "", content: "" });
 
   function handleChange(e) {
@@ -16,21 +17,9 @@ function NoteForm() {
     e.preventDefault();
 
     try {
-      const res = await fetch("/notes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(note),
-      });
-
-      if (!res.ok) {
-        throw new Error("Request failed");
-      }
-
-      const data = await res.json();
-      console.log(data);
-
+      const res = await axios.post("/notes", note);
+      console.log(res.data);
+      updateNotes((prev) => [...prev, res.data]);
       setNote({ title: "", content: "" });
     } catch (err) {
       console.error(err);
