@@ -2,6 +2,20 @@
 
 @layer base {
   body {
-    @apply bg-black text-gray-200 p-5;
+    @apply bg-neutral-950 text-gray-200 p-5;
+  }
+  label {
+    @apply text-xs font-bold text-gray-400 block mb-1;
+  }
+  input,
+  textarea {
+    @apply mb-4 text-sm block w-full bg-neutral-950 rounded-md p-2 border-neutral-600 border-[0.5px]
+    focus:outline-1 focus:outline-white;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply text-sm w-full h-10 bg-blue-500 rounded-lg;
   }
 }
