@@ -1,4 +1,14 @@
-function Note({ title, content }) {
+import axios from "axios";
+
+function Note({ id, title, content, onDelete }) {
+  async function deleteNote() {
+    try {
+      await axios.delete(`/notes/${id}`);
+      onDelete(id);
+    } catch (err) {
+      console.error(err);
+    }
+  }
   return (
     <div className="my-4 border-[.5px] border-neutral-600 rounded-lg p-4 grid grid-cols-[5fr_1fr]">
       <div>
@@ -6,7 +16,12 @@ function Note({ title, content }) {
         <p className="text-sm text-gray-400">{content}</p>
       </div>
       <div className="flex justify-between flex-col">
-        <button className="text-red-400 text-sm font-medium">Delete</button>
+        <button
+          className="text-red-400 text-sm font-medium"
+          onClick={deleteNote}
+        >
+          Delete
+        </button>
         <button className="invisible text-cyan-300 text-sm font-medium">
           Save
         </button>

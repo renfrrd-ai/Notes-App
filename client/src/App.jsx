@@ -24,7 +24,7 @@ function App() {
       <Header />
       <div className="grid md:grid-cols-[1fr_2fr] gap-8">
         <NoteForm updateNotes={setNotes} />
-        <Notes notes={notes} />
+        <Notes notes={notes} updateNotes={setNotes} />
       </div>
     </>
   );

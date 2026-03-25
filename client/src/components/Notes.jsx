@@ -1,6 +1,9 @@
 import Note from "./Note";
 
-function Notes({ notes }) {
+function Notes({ notes, updateNotes }) {
+  function removeNote(id_) {
+    updateNotes((prev) => prev.filter((note) => note.id !== id_));
+  }
   return (
     <div>
       <div className="grid grid-cols-[6fr_1fr]">
@@ -14,7 +17,13 @@ function Notes({ notes }) {
           return new Date(b.created_at) - new Date(a.created_at);
         })
         .map((note) => (
-          <Note key={note.id} title={note.title} content={note.content} />
+          <Note
+            key={note.id}
+            id={note.id}
+            title={note.title}
+            content={note.content}
+            onDelete={removeNote}
+          />
         ))}
     </div>
   );
