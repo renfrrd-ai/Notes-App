@@ -2,65 +2,72 @@ const express = require("express");
 const router = express.Router();
 
 const pool = require("../db");
+const authenticateToken = require("../middleware/auth");
 
-router.get("/", async (req, res) => {
+router.get("/", authenticateToken, async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM notes");
+    const result = await pool.query(
+      `
+      SELECT * FROM notes
+      WHERE user_id=$1
+      ORDER BY updated_at DESC`,
+      [req.user.id],
+    );
     res.status(200).json(result.rows);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: "Something went wrong" });
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", authenticateToken, async (req, res) => {
   try {
     const { title, content } = req.body;
 
     if (!title || !content) {
       return res.status(400).json({
-        error: "Title and content are required",
+        message: "Title and content are required",
       });
     }
 
     const result = await pool.query(
-      `INSERT INTO notes (title, content)
-       VALUES ($1, $2)
+      `INSERT INTO notes (title, content, user_id)
+       VALUES ($1, $2, $3)
        RETURNING *`,
-      [title, content],
+      [title, content, req.user.id],
     );
     res.status(201).json(result.rows[0]);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: "Something went wrong" });
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", authenticateToken, async (req, res) => {
   const id = parseInt(req.params.id, 10);
 
   if (isNaN(id)) {
-    return res.status(400).json({ error: "Invalid ID" });
+    return res.status(400).json({ message: "Invalid ID" });
   }
 
   try {
     const result = await pool.query(
       `SELECT * FROM notes
-       WHERE id=$1`,
-      [id],
+       WHERE id=$1 AND user_id=$2`,
+      [id, req.user.id],
     );
 
     if (result.rows.length === 0)
       return res.status(404).json({ message: "Note not found" });
     res.status(200).json(result.rows[0]);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: "Something went wrong" });
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", authenticateToken, async (req, res) => {
   const id = parseInt(req.params.id, 10);
 
   if (isNaN(id)) {
-    return res.status(400).json({ error: "Invalid ID" });
+    return res.status(400).json({ message: "Invalid ID" });
   }
 
   try {
@@ -68,47 +75,47 @@ router.put("/:id", async (req, res) => {
 
     if (!title || !content) {
       return res.status(400).json({
-        error: "Title and content are required",
+        message: "Title and content are required",
       });
     }
 
     const result = await pool.query(
       `UPDATE notes
        SET title = $1, content = $2, updated_at = CURRENT_TIMESTAMP
-       WHERE id=$3
+       WHERE id=$3 AND user_id=$4
        RETURNING *`,
-      [title, content, id],
+      [title, content, id, req.user.id],
     );
 
     if (result.rows.length === 0)
       return res.status(404).json({ message: "Note not found" });
     res.status(200).json(result.rows[0]);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: "Something went wrong" });
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authenticateToken, async (req, res) => {
   const id = parseInt(req.params.id, 10);
 
   if (isNaN(id)) {
-    return res.status(400).json({ error: "Invalid ID" });
+    return res.status(400).json({ message: "Invalid ID" });
   }
 
   try {
     const result = await pool.query(
       `DELETE FROM notes
-       WHERE id=$1
+       WHERE id=$1 and user_id=$2
        RETURNING *`,
-      [id],
+      [id, req.user.id],
     );
 
     if (result.rowCount === 0) {
       return res.status(404).json({ message: "Note not found" });
     }
-    res.status(200).json(result.rows[0]);
+    res.status(200).json({ message: "Note deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: "Something went wrong" });
   }
 });
 
