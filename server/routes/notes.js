@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
-require("dotenv").config();
 
 const pool = require("../db");
 
-router.get("/notes", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM notes");
     res.status(200).json(result.rows);
@@ -13,7 +12,7 @@ router.get("/notes", async (req, res) => {
   }
 });
 
-router.post("/notes", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const { title, content } = req.body;
 
@@ -35,7 +34,7 @@ router.post("/notes", async (req, res) => {
   }
 });
 
-router.get("/notes/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   const id = parseInt(req.params.id, 10);
 
   if (isNaN(id)) {
@@ -57,7 +56,7 @@ router.get("/notes/:id", async (req, res) => {
   }
 });
 
-router.put("/notes/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   const id = parseInt(req.params.id, 10);
 
   if (isNaN(id)) {
@@ -89,7 +88,7 @@ router.put("/notes/:id", async (req, res) => {
   }
 });
 
-router.delete("/notes/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   const id = parseInt(req.params.id, 10);
 
   if (isNaN(id)) {
