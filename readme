@@ -1,0 +1,240 @@
+# 🧠 Notes App (Full Stack)
+
+A full-stack Notes application that allows users to securely create, view, and manage personal notes.
+Built as part of a hands-on learning journey to move from tutorial-based learning to real-world application development.
+
+---
+
+## 🚀 Features
+
+### 🔐 Authentication
+
+- User signup with email and password
+- Secure login with JWT (JSON Web Tokens)
+- Password hashing using bcrypt
+- Protected routes for authenticated users only
+
+### 📝 Notes Management
+
+- Create notes
+- View all personal notes
+- Delete notes
+- Each user only accesses their own data
+
+### 🌐 Frontend
+
+- React-based UI
+- API integration with backend
+- Basic responsive styling using Tailwind CSS
+
+---
+
+## 🏗️ Tech Stack
+
+### Frontend
+
+- React
+- Axios
+- Tailwind CSS
+
+### Backend
+
+- Node.js
+- Express.js
+- PostgreSQL
+
+### Authentication
+
+- JWT (jsonwebtoken)
+- bcrypt
+
+---
+
+## 📁 Project Structure
+
+```
+notes-app/
+│
+├── backend/
+│   ├── server.js
+│   ├── db.js
+│   ├── routes/
+│   │   ├── auth.js
+│   │   └── notes.js
+│   ├── middleware/
+│   │   └── authMiddleware.js
+│   └── controllers/
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── NotesList.jsx
+│   │   │   ├── AddNoteForm.jsx
+│   │   │   ├── Login.jsx
+│   │   │   └── Signup.jsx
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│
+└── README.md
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1. Clone the repository
+
+```
+git clone https://github.com/your-username/notes-app.git
+cd notes-app
+```
+
+---
+
+### 2. Backend Setup
+
+```
+cd backend
+npm install
+```
+
+Create a `.env` file:
+
+```
+PORT=5000
+DATABASE_URL=your_postgres_connection_string
+JWT_SECRET=your_secret_key
+```
+
+Start server:
+
+```
+npm run dev
+```
+
+---
+
+### 3. Database Setup (PostgreSQL)
+
+Create tables:
+
+```sql
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  email TEXT UNIQUE NOT NULL,
+  password TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE notes (
+  id SERIAL PRIMARY KEY,
+  title TEXT,
+  content TEXT,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+---
+
+### 4. Frontend Setup
+
+```
+cd frontend
+npm install
+npm run dev
+```
+
+---
+
+## 🔌 API Endpoints
+
+### Auth Routes
+
+```
+POST /auth/signup
+POST /auth/login
+```
+
+### Notes Routes (Protected)
+
+```
+GET    /notes
+POST   /notes
+DELETE /notes/:id
+```
+
+---
+
+## 🔐 Authentication Flow
+
+1. User signs up or logs in
+2. Server returns JWT token
+3. Token stored in localStorage
+4. Token sent in Authorization header
+5. Backend middleware verifies token
+6. Access granted to protected routes
+
+---
+
+## 🧪 Example Request (Protected Route)
+
+```
+GET /notes
+Authorization: Bearer <your_token>
+```
+
+---
+
+## ⚠️ Known Limitations
+
+- No edit/update note feature (yet)
+- Basic UI (focus is functionality)
+- No refresh token handling
+- Token stored in localStorage (not production-safe)
+
+---
+
+## 📈 Future Improvements
+
+- Edit/update notes
+- Rich text editor
+- Tags & categories
+- Search functionality
+- Dark mode
+- Deployment (Docker, cloud hosting)
+- Refresh tokens & better auth security
+
+---
+
+## 🎯 Learning Goals
+
+This project was built to:
+
+- Reinforce full-stack development skills
+- Practice building without tutorials
+- Understand authentication deeply
+- Improve debugging and problem-solving
+
+---
+
+## 🧠 Key Takeaways
+
+- Building > Watching tutorials
+- Struggling = Learning
+- Authentication is core to real applications
+- Debugging is a primary skill
+
+---
+
+## 📄 License
+
+This project is open-source and available under the MIT License.
+
+---
+
+## 🙌 Acknowledgements
+
+Built as part of a self-driven journey to become a better software engineer by focusing on real-world projects instead of passive learning.
+
+---
