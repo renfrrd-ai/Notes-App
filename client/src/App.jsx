@@ -1,5 +1,6 @@
 import Header from "./components/Header";
 import NotePage from "./pages/NotePage";
+import LoginPage from "./pages/LoginPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -10,7 +11,7 @@ function App() {
         <Routes>
           <Route path="/notes" element={<NotePage />} />
           <Route path="/me" element={null} />
-          <Route path="/login" element={null} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -5,7 +5,7 @@
     @apply bg-neutral-950 text-gray-200 p-5;
   }
   label {
-    @apply text-xs font-bold text-gray-400 block mb-1;
+    @apply text-xs font-bold text-gray-400 block mb-1 uppercase;
   }
   input,
   textarea {
@@ -17,5 +17,8 @@
 @layer components {
   .btn {
     @apply text-sm w-full h-10 bg-blue-500 rounded-lg cursor-pointer active:bg-blue-400;
+  }
+  .link {
+    @apply text-blue-400;
   }
 }
