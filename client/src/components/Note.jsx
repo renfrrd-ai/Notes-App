@@ -14,7 +14,7 @@ function Note({ id, title, content, onDelete }) {
 
   async function handleSave() {
     try {
-      await axios.put(`/notes/${id}`, note);
+      await axios.put(`/api/notes/${id}`, note);
       setIsEditing(false);
     } catch (err) {
       console.error("Save failed", err);
@@ -23,7 +23,7 @@ function Note({ id, title, content, onDelete }) {
 
   async function deleteNote() {
     try {
-      await axios.delete(`/notes/${id}`);
+      await axios.delete(`/api/notes/${id}`);
       onDelete(id);
     } catch (err) {
       console.error(err);

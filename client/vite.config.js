@@ -12,7 +12,7 @@ export default defineConfig({
   ],
   server: {
     proxy: {
-      "/notes": {
+      "/api": {
         target: "http://localhost:5040",
         changeOrigin: true,
       },

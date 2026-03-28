@@ -17,7 +17,7 @@ function NoteForm({ updateNotes }) {
     e.preventDefault();
 
     try {
-      const res = await axios.post("/notes", note);
+      const res = await axios.post("/api/notes", note);
       console.log(res.data);
       updateNotes((prev) => [...prev, res.data]);
       setNote({ title: "", content: "" });
