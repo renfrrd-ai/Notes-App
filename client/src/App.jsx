@@ -1,16 +1,18 @@
 import Header from "./components/Header";
-import Home from "./pages/Home";
+import NotePage from "./pages/NotePage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/notes" element={<Home />} />
-        <Route path="/me" element={null} />
-        <Route path="/login" element={null} />
-      </Routes>
+      <div className="flex flex-col h-screen">
+        <Header />
+        <Routes>
+          <Route path="/notes" element={<NotePage />} />
+          <Route path="/me" element={null} />
+          <Route path="/login" element={null} />
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 }

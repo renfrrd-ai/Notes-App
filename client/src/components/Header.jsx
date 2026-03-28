@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
+import Logo from "./Logo";
 
 function Header() {
   return (
     <header>
       <div className="grid grid-cols-1 text-center gap-1 md:grid-cols-2 md:text-left">
         <Link to="/" className="flex justify-center md:justify-start gap-3">
-          <span className="text-3xl font-bold bg-blue-500 flex size-12 justify-center items-center rounded-lg">
-            N
-          </span>
+          <Logo />
           <h2 className="text-4xl font-semibold">My Notes</h2>
         </Link>
         <p className="text-sm text-gray-400 md:col-start-1">
