@@ -1,6 +1,7 @@
 import Header from "./components/Header";
 import NotePage from "./pages/NotePage";
 import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -32,6 +33,7 @@ function App() {
             path="/login"
             element={<LoginPage setIsLoggedIn={setIsLoggedIn} />}
           />
+          <Route path="/register" element={<RegisterPage />} />
         </Routes>
       </div>
     </BrowserRouter>
