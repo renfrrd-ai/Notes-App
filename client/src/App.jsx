@@ -1,32 +1,17 @@
 import Header from "./components/Header";
-import NoteForm from "./components/NoteForm";
-import Notes from "./components/Notes";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import Home from "./pages/Home";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
-  const [notes, setNotes] = useState([]);
-
-  useEffect(() => {
-    async function fetchNotes() {
-      try {
-        const res = await axios.get("/api/notes");
-        setNotes(res.data);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    fetchNotes();
-  }, []);
-
   return (
-    <>
+    <BrowserRouter>
       <Header />
-      <div className="grid md:grid-cols-[1fr_2fr] gap-8">
-        <NoteForm updateNotes={setNotes} />
-        <Notes notes={notes} updateNotes={setNotes} />
-      </div>
-    </>
+      <Routes>
+        <Route path="/notes" element={<Home />} />
+        <Route path="/me" element={null} />
+        <Route path="/login" element={null} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

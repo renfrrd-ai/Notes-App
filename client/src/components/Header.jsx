@@ -1,15 +1,23 @@
+import { Link } from "react-router-dom";
+
 function Header() {
   return (
     <header>
-      <div className="flex flex-start gap-3 mb-2">
-        <span className="text-3xl font-bold bg-blue-500 p-1 flex size-12 justify-center align-middle rounded-lg">
-          N
-        </span>
-        <h2 className="text-4xl font-semibold mb-3">My Notes</h2>
+      <div className="grid grid-cols-1 text-center gap-1 md:grid-cols-2 md:text-left">
+        <Link to="/" className="flex justify-center md:justify-start gap-3">
+          <span className="text-3xl font-bold bg-blue-500 flex size-12 justify-center items-center rounded-lg">
+            N
+          </span>
+          <h2 className="text-4xl font-semibold">My Notes</h2>
+        </Link>
+        <p className="text-sm text-gray-400 md:col-start-1">
+          Backend: Express + Postgres | Frontend: React + Tailwind
+        </p>
+        <ul className="flex  gap-3 justify-center md:justify-end md:col-start-2 md:row-start-1 items-center">
+          <Link to="/notes">Notes</Link> |<Link to="/me">Dashboard</Link>|
+          <Link to="/login">Login</Link>
+        </ul>
       </div>
-      <p className="text-sm text-gray-400">
-        Backend: Express + Postgres | Frontend: React + Tailwind
-      </p>
       <hr className="border-gray-300 my-5 opacity-25" />
     </header>
   );
