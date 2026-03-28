@@ -1,7 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
+import axios from "axios";
 
-function Header() {
+function Header({ isLoggedIn, setIsLoggedIn }) {
+  const navigate = useNavigate();
+
+  async function handleClick() {
+    try {
+      await axios.post("/api/auth/logout");
+      setIsLoggedIn(false);
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <header>
       <div className="grid grid-cols-1 text-center gap-1 md:grid-cols-2 md:text-left">
@@ -13,8 +26,21 @@ function Header() {
           Backend: Express + Postgres | Frontend: React + Tailwind
         </p>
         <ul className="flex  gap-3 justify-center md:justify-end md:col-start-2 md:row-start-1 items-center">
-          <Link to="/notes">Notes</Link> |<Link to="/me">Dashboard</Link>|
-          <Link to="/login">Login</Link>
+          <li>
+            <Link to="/notes">Notes</Link>
+          </li>{" "}
+          |
+          <li>
+            <Link to="/me">Dashboard</Link>
+          </li>{" "}
+          |
+          <li>
+            {isLoggedIn ? (
+              <button onClick={handleClick}>Logout</button>
+            ) : (
+              <Link to="/login">Login</Link>
+            )}
+          </li>
         </ul>
       </div>
       <hr className="border-gray-300 my-5 opacity-25" />

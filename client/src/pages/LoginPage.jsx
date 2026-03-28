@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Login({ setIsLoggedIn }) {
   const [data, setData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
 
@@ -23,6 +23,7 @@ function Login() {
       const res = await axios.post("/api/auth/login", data);
       console.log(res.data.message);
       setData({ email: "", password: "" });
+      setIsLoggedIn(true);
       navigate("/notes");
     } catch (error) {
       console.error(error);
@@ -37,7 +38,7 @@ function Login() {
           <h3 className="text-2xl font-semibold">Welcome Back</h3>
           <p className="text-sm text-gray-400">Log in to your notes</p>
         </div>
-        <form onClick={handleSubmit} method="post">
+        <form onSubmit={handleSubmit} method="post">
           <label htmlFor="email">Email</label>
           <input
             type="email"
