@@ -8,6 +8,7 @@ const app = express();
 const notesRoutes = require("./routes/notes");
 const authRoutes = require("./routes/auth");
 const dashboardRoutes = require("./routes/dashboard");
+const taskRoutes = require("./routes/tasks");
 
 app.use(cors());
 app.use(express.json());
@@ -17,6 +18,7 @@ app.use(cookieParser());
 app.use("/auth", authRoutes);
 app.use("/notes", notesRoutes);
 app.use("/me", dashboardRoutes);
+app.use("/tasks", taskRoutes);
 
 app.listen(port, (err) => {
   if (err) console.log(err);
