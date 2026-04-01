@@ -19,4 +19,24 @@ router.get("/", authenticateToken, async (req, res) => {
   }
 });
 
+router.post("/", authenticateToken, async (req, res) => {
+  try {
+    const { title, description, due_date } = req.body;
+    if (!title || !description || !due_date) {
+      return res.status(400).json({
+        message: "Title, Description and due date are required",
+      });
+    }
+    const result = await pool.query(
+      `
+        INSERT INTO tasks (title, description, due_date, user_id)
+        VALUES ($1, $2, $3, $4)
+        RETURNING *`,
+      [title, description, due_date, req.user.id],
+    );
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong" });
+  }
+});
+
 module.exports = router;
